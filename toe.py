@@ -290,15 +290,15 @@ def cpu_make_move(cpu, player, board):
 				for j in range(1,10):
 					if is_empty(board,j):
 						board[j] = cpu
-						if is_winner(cpu,board):
-							board[j] = player
+						if is_winner(cpu,board):  #cpu makes move to make opponent defend
+							board[j] = player     #the player will defend to avoid loss, and we want this move not to lead to any forks for opponent
 							for k in range(1,10):
 								if is_empty(board,k):
 									board[k] = player
 									if is_winner(player,board):
 										count = count + 1
 									board[k] = ' '
-							if count <= 1:
+							if count <= 1: #if there are no forks possible from move i, then append it into the possible moves list , note: if no i satisfies this, then no matter what, opponent has won the game
 								potential_moves.append(i)
 						board[j] = ' '
 				board[i] = ' '
